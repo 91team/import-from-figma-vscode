@@ -5,7 +5,25 @@ import { importFromFigma, Config } from 'import-from-figma'
 type PluginConfig = Omit<Config, 'outputDir'>
 
 export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('import-from-figma-vscode.run-import', async () => {
+	let openDesignDisposable = vscode.commands.registerCommand('import-from-figma-vscode.open-design', async () => {
+		const currentWorkspace = getCurrentWorkspaceFolder()
+
+		if (!currentWorkspace) {
+			vscode.window.showErrorMessage('Failed to define current workspace')
+			return
+		}
+
+		const workspacePath = currentWorkspace.uri.fsPath
+
+		const config = await getWorkspaceFigmaConfig(workspacePath)
+		if (!config) { return }
+
+		const projectId = config.projectId;
+
+		vscode.env.openExternal(vscode.Uri.parse(`https://www.figma.com/file/${projectId}/`));
+	})
+
+	let importDisposable = vscode.commands.registerCommand('import-from-figma-vscode.run-import', async () => {
 		vscode.window.showInformationMessage('Starting import');
 
 		const currentWorkspace = getCurrentWorkspaceFolder()
@@ -17,22 +35,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const workspacePath = currentWorkspace.uri.fsPath
 
-		const configPath = path.join(
-			workspacePath,
-			".vscode",
-			"import-from-figma",
-			"config.json"
-		);
-
-		let config: PluginConfig
-
-		try {
-			const rawConfig = await vscode.workspace.openTextDocument(configPath);
-			config = JSON.parse(rawConfig.getText());
-		} catch (_) {
-			vscode.window.showErrorMessage(`Config file not found or corrupted.\nSearching file at ${configPath}`)
-			return
-		}
+		const config = await getWorkspaceFigmaConfig(workspacePath)
+		if (!config) { return }
 
 		vscode.window.showInformationMessage('Got config. Running import...');
 
@@ -56,7 +60,8 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Import from Figma has finished');
 	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(openDesignDisposable);
+	context.subscriptions.push(importDisposable);
 }
 
 export function deactivate() { }
@@ -70,5 +75,25 @@ function getCurrentWorkspaceFolder() {
 
 	if (currentFileURI) {
 		return vscode.workspace.getWorkspaceFolder(currentFileURI)
+	}
+}
+
+async function getWorkspaceFigmaConfig(workspacePath: string) {
+	const configPath = path.join(
+		workspacePath,
+		".vscode",
+		"import-from-figma",
+		"config.json"
+	);
+
+	let config: PluginConfig
+
+	try {
+		const rawConfig = await vscode.workspace.openTextDocument(configPath);
+		config = JSON.parse(rawConfig.getText());
+		return config
+	} catch (_) {
+		vscode.window.showErrorMessage(`Config file not found or corrupted.\nSearching file at ${configPath}`)
+		return
 	}
 }

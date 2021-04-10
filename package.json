@@ -10,7 +10,8 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:import-from-figma-vscode.run-import"
+		"onCommand:import-from-figma-vscode.run-import",
+		"onCommand:import-from-figma-vscode.open-design"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
@@ -18,6 +19,10 @@
 			{
 				"command": "import-from-figma-vscode.run-import",
 				"title": "Run import from Figma"
+			},
+			{
+				"command": "import-from-figma-vscode.open-design",
+				"title": "Open project design in Figma"
 			}
 		]
 	},
