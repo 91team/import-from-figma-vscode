@@ -18,6 +18,13 @@ Then create config file at `$PROJECT_ROOT/.vscode/import-from-figma/config.json`
 }
 ```
 
+In your Figma project 3 pages must be presented:
+- `Colors`
+- `Typography`
+- `Icons`
+
+Each page should contain related stuff: color palette, typography & icons
+
 ## Features
 
 Press `Cmd+Shift+P` and type `Figma` to find options provided by this plugin:
