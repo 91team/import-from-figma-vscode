@@ -1,70 +1,27 @@
-# import-from-figma-vscode README
+# import-from-figma-vscode
 
-This is the README for your extension "import-from-figma-vscode". After writing up a brief description, we recommend including the following sections.
-
-## Features
-
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
-
-For example if there is an image subfolder under your extension project workspace:
-
-\!\[feature X\]\(images/feature-x.png\)
-
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Extension allowing you to import colors, typography & icons from Figma project to your React or Flutter project.
+Based on [this utility](https://github.com/ikabirov/import-from-figma)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+To start use this extension firstly install it (download from `builds/` last actual version and run `code --install-extension import-from-figma-vscode-x.x.x.vsix`). Don't forget to add `code` to PATH (`Cmd+Shift+P` -> `Install 'code' command in PATH`).
+Then create config file at `$PROJECT_ROOT/.vscode/import-from-figma/config.json` and add this file to `.gitignore`, because it will contain your private Figma token. Add this to your config:
+```
+{
+    "figmaToken": "YOUR_TOKEN", // Can be obtained at https://www.figma.com/developers/api#authentication
+    "projectId": "YOUR_PROJECT_ID", // https://www.figma.com/file/$YOUR_PROJECT_ID/
+    "exportType": "react", // Or "flutter"
+    "iconsDir": "icons", // Dir for your icons, for example this will result icons to be in `$PROJECT_ROOT/icons`
+    "colorsDir": "lib/figma", // Same: dir to contain file with your colors
+    "typographyDir": "lib/figma" // Dir to contain file with your fonts
+}
+```
 
-## Extension Settings
+## Features
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Press `Cmd+Shift+P` and type `Figma` to find options provided by this plugin:
+- Open project design in Figma
+- Run import from Figma
 
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: enable/disable this extension
-* `myExtension.thing`: set to `blah` to do something
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
------------------------------------------------------------------------------------------------------------
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-**Note:** You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+CMD+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux) or `Cmd+Space` (macOS) to see a list of Markdown snippets
-
-### For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+If your project contains correct config, first option will open Figma with design of your project, and second will start import. Keep in mind, that import is a long process, so watch indicator at the bottom of your IDE to be aware of process status

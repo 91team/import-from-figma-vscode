@@ -97,7 +97,7 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.7.tgz#1cb61fd0c85cb87e728c43107b5fd82b69bc9ef8"
   integrity sha512-gWL8VUkg8VRaCAUgG9WmhefMqHmMblxe2rVpMF86nZY/+ZysU+BkAp+3cz03AixWDSSz0ks5WX59yAhv/cDwFA==
 
-"@types/vscode@^1.55.0":
+"@types/vscode@^1.54.0":
   version "1.55.0"
   resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.55.0.tgz#58cfbebbd32b3e374e07e7858b1fd0e92b1a1d2b"
   integrity sha512-49hysH7jneTQoSC8TWbAi7nKK9Lc5osQNjmDHVosrcU8o3jecD9GrK0Qyul8q4aGPSXRfNGqIp9CBdb13akETg==
@@ -951,7 +951,7 @@ import-fresh@^3.0.0, import-fresh@^3.2.1:
 
 import-from-figma@Stalder/import-from-figma:
   version "1.0.0"
-  resolved "https://codeload.github.com/Stalder/import-from-figma/tar.gz/dc4ee0a079667fa5305077aae205c8adf5788576"
+  resolved "https://codeload.github.com/Stalder/import-from-figma/tar.gz/215d58c6084bc676eaa32de0c015a8608b3dc3b1"
   dependencies:
     change-case "^4.1.2"
     dotenv "^8.2.0"
